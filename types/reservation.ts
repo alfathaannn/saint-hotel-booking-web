@@ -1,4 +1,4 @@
-import { Prisma } from "@/app/generated/prisma/client";
+import { Prisma } from "@/app/generated/prisma/client/client";
 
 export type reservationProps = Prisma.ReservationGetPayload<{
     include: {
