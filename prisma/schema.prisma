@@ -1,0 +1,127 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client"
+  output   = "../app/generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Room {
+  id            String          @id @default(cuid())
+  name          String
+  image         String
+  description   String          @db.Text
+  price         Int
+  capacity      Int             @default(1)
+  roomAmenities RoomAmenities[]
+  reservations  Reservation[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Amenities {
+  id            String          @id @default(cuid())
+  name          String
+  roomAmenities RoomAmenities[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RoomAmenities {
+  id            String          @id @default(cuid())
+  
+  roomId        String
+  Room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  
+  amenitiesId   String
+  Amenities Amenities @relation(fields: [amenitiesId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Reservation {
+  id            String          @id @default(cuid())
+  startDate     DateTime
+  endDate       DateTime
+  price         Int
+  payment       Payment?
+
+  roomId        String
+  Room Room @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  
+  userId        String
+  User User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Payment {
+  id            String          @id @default(cuid())
+  method        String
+  amount        Int
+  status        String          @default("unpaid")
+
+  reservationId String          @unique
+  Reservation Reservation @relation(fields: [reservationId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  role          String          @default("USER")
+  phone         String?
+  accounts      Account[]
+  reservations  Reservation[]
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+ 
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+
+model Contact {
+  id            String          @id @default(cuid())
+  name          String
+  email         String          @unique
+  subject       String
+  message       String
+ 
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
