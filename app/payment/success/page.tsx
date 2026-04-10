@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { IoCheckmarkCircle, IoReceiptOutline, IoHomeOutline, IoPrintOutline, IoDownloadOutline } from "react-icons/io5";
+import { IoCheckmarkCircle, IoReceiptOutline, IoHomeOutline } from "react-icons/io5";
 import { redirect } from "next/navigation";
 import { Metadata } from "next";
 
