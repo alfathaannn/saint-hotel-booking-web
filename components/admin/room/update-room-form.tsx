@@ -3,7 +3,7 @@ import React, { useActionState } from 'react'
 import { updateRoom } from '@/lib/action'
 import { useRef, useState } from 'react'
 import { IoCloudUploadOutline, IoCheckmarkCircleOutline, IoTrashOutline } from "react-icons/io5"
-import { Amenities, Room } from '@/app/generated/prisma/client'
+import { Amenities, Room } from '@/app/generated/prisma/client/client'
 import { RoomProps } from '@/types/room'
 import {clsx} from "clsx";
 

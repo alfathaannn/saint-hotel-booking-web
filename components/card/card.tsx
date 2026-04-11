@@ -3,7 +3,7 @@ import Image from 'next/image'
 import heroImage from '@/public/hero-image.png'
 import Link from 'next/link'
 import { IoPeopleOutline } from "react-icons/io5"
-import { Room } from '@/app/generated/prisma/client'
+import { Room } from '@/app/generated/prisma/client/client'
 import { formatCurrency } from '@/lib/utils'
 
 export const Card = ({room}: {room: Room}) => {

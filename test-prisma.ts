@@ -1,4 +1,4 @@
-import { PrismaClient } from './app/generated/prisma/client/index.js'
+import { PrismaClient } from './app/generated/prisma/client/client.js'
 const prisma = new PrismaClient()
 async function main() {
     const rooms = await prisma.room.findMany()

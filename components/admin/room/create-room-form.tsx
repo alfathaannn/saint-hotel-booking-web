@@ -3,7 +3,7 @@ import React, { useActionState } from 'react'
 import { saveRoom } from '@/lib/action'
 import { useRef, useState } from 'react'
 import { IoCloudUploadOutline, IoCheckmarkCircleOutline, IoTrashOutline } from "react-icons/io5"
-import { Amenities } from '@/app/generated/prisma/client'
+import { Amenities } from '@/app/generated/prisma/client/client'
 import {clsx} from "clsx";
 
 const CreateRoomForm = ({ amenities }: { amenities: Amenities[] }) => {
